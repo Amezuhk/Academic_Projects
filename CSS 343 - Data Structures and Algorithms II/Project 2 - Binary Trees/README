@@ -1,0 +1,3 @@
+This project consisted of programming a functional binary tree as outlined by the project description
+Lab2.cpp is the driver for the binary tree provided by the instructor to test the binary tree against
+The typescript file is the output of the lab2.cpp as output on a linux machine, this also includes a valgrind analysis of the program

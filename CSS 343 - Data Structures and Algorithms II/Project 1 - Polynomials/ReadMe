@@ -1,0 +1,3 @@
+This project is a polinomial class that is implemented using a dynamic array. It features multiple functions such as 
+addition substration multiplication division, and duplication.
+The lab1.cpp is the test provided by the professor my polinomial class has to be able to do everything in it as noted. 

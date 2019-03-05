@@ -1,0 +1,12 @@
+This project consisted of creating a library database system as outlined by the assignment.
+The system is designed based on data entries through .txt files that follow a specific notation.
+There are 3 entities in the system, Patrons, Books, and Interactions.
+Books and Patrons are stored in hashtables:
+
+Hashtable 1: Books hashtable, a hashtable of BinTrees size 26, based on the Ascii of capital chars.
+found in BookCollection.h/cpp
+
+Hashtable 2: Patron Hashtable, size 211 (prime number, assuming max patrons 100),
+uses double hashing, the example from class (h1 = id%10) (h2 = 7 - (id %7), found in PatronCollection.h/cpp
+
+This project also was designed to be object oriented and uses the factory method to maintain object oriented functionality and design.

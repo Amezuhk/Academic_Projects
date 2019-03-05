@@ -1,0 +1,6 @@
+This is a team Project that I did with Team Rocket, Evelyn Mahasin, and Kay Pham
+The project is to create a dissassembler for the motorolla 68k assembly language. Parsing the bits from a 
+given address space in the system and parsing them into the assembly language.
+We split the project into 3 parts, I/O, Opcodes, and Effective Addresses.
+I worked on the effective addresses for this project.
+The output is shown based on the test that is parsed.

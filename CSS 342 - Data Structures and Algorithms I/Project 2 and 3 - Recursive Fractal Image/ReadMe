@@ -1,0 +1,9 @@
+This is the combination of project 2 and 3.
+Project 2 was making my own image class from the Image Library with well defined parameters as well as getters and setters
+newImage class is my implemetation of my own image library class based on the ImageLib
+
+Project 3 was using my image class to create a recursive fractal image as defined by the professor. The driver handles a lot of the recurssion.
+The rectangle class is used to define image sizes in the fractal images, as well as placement in the whole image.
+
+fox.gif is the input, and output.gif is the output.
+

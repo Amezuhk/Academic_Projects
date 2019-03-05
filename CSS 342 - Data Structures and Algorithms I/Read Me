@@ -1,0 +1,4 @@
+This class was taught by Professor Clark Olson. The class focused on using image manipulation to teach data strcuture 
+and algorithm concepts in C++.
+The ImageLib interface was provided by the professor to enable the students to be able to manipulate .gif image files
+The functionality is outlined in ImageLib.h

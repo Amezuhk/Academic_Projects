@@ -1,0 +1,240 @@
+﻿
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+using System.Configuration;
+using System.Data.SqlClient;
+
+
+namespace Library1
+{
+    public partial class frmMain : Form
+    {
+        SqlConnection connection;
+        string connectionString;
+
+        public frmMain()
+        {
+            InitializeComponent();
+            connectionString = ConfigurationManager.ConnectionStrings["Library1.Properties.Settings.Library1ConnectionString"].ConnectionString;
+        }
+
+        
+
+        private void frmMain_Load(object sender, EventArgs e)
+        {
+            populateBook();
+            //CheckedBooks();
+            DrpDwn();
+            Actor123();
+            TopRated();
+            ShowLibID();
+            ListGenre();
+        }
+
+        private void populateBook()
+        {
+            using (connection = new SqlConnection(connectionString))
+            using (SqlDataAdapter adapter = new SqlDataAdapter("SELECT LName FROM Library_B", connection))
+            {
+                DataTable LibTable = new DataTable();
+                adapter.Fill(LibTable);
+
+                lstLib.DisplayMember = "LName";
+                lstLib.ValueMember = "LID";
+                lstLib.DataSource = LibTable;
+            }
+        }
+
+
+       
+
+
+        private void ShowLibID()
+        {
+            using (connection = new SqlConnection(connectionString))
+            using (SqlDataAdapter adapter = new SqlDataAdapter("SELECT LID FROM Library_B", connection))
+            {
+                DataTable LibTable = new DataTable();
+                adapter.Fill(LibTable);
+
+ 
+                lstLibID.ValueMember = "LID";
+
+                lstLibID.DataSource = LibTable;
+            }
+        }
+
+        private void TopRated()
+        {
+            using (connection = new SqlConnection(connectionString))
+            using (SqlDataAdapter adapter = new SqlDataAdapter("select b.BookName from Review r, Book b where r.ItemID = b.BookID and r.Rating > 7", connection))
+            {
+                DataTable LibTable = new DataTable();
+                adapter.Fill(LibTable);
+
+                lstTop.DisplayMember = "BookName";
+                lstTop.ValueMember = "BookID";
+                lstTop.DataSource = LibTable;
+            }
+        }
+
+        private void btnAddNum_Click(object sender, EventArgs e)
+        {
+            String query = "INSERT INTO Library_B VALUES (@LID,@LName,'16628 NE 122nd ST',2063725052)";
+
+            // int i = 0;
+            // while (i < lstLibID.Items.Count)
+            // {
+            //result = lstLibID.Items[i];
+            // if (lstLibID.Items.ToString() == "@LID")
+            // {
+            //     Console.WriteLine("Bad data");
+            //}
+            ///i++;
+            // }
+            //if (!lstLibID.Items.Contains("@LID"))
+
+
+            using (connection = new SqlConnection(connectionString))
+            using (SqlCommand command = new SqlCommand(query, connection))
+            {
+                connection.Open();
+                command.Parameters.AddWithValue("@LName", TextLID.Text);
+                command.Parameters.AddWithValue("@LID", TextID.Text);
+
+                //if (lstLibID.Items.Contains("@LID"))
+
+                //btnAddNum.Enabled = true;
+                command.ExecuteScalar();
+
+                //command.Parameters.AddWithValue("@LName", lstBooks.SelectedValue);  TextID
+                //command.ExecuteNonQuery()
+            }
+            populateBook();
+            ShowLibID();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            String query = "delete from Library_B where LID = @LID";
+            if (Int32.Parse(TextID.Text) > 10)
+            {
+                using (connection = new SqlConnection(connectionString))
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    
+                    connection.Open();
+                    command.Parameters.AddWithValue("@LID", TextID.Text);
+
+                    command.ExecuteScalar();
+                    //command.ExecuteNonQuery();
+                }
+            }
+            else
+            {
+                Console.WriteLine("Bad data");
+            }
+            populateBook();
+            ShowLibID();
+        }
+
+       
+
+        private void BtnUpdate_Click(object sender, EventArgs e)
+        {
+            String query = "update Library_B set LName = @LName where LID = @LID";
+
+            using (connection = new SqlConnection(connectionString))
+            using (SqlCommand command = new SqlCommand(query, connection))
+            {
+                connection.Open();
+                command.Parameters.AddWithValue("@LName", TextLID.Text);
+                command.Parameters.AddWithValue("@LID", TextID.Text);
+                command.ExecuteScalar();
+                //command.ExecuteNonQuery();
+            }
+            populateBook();
+            ShowLibID();
+        }
+
+        //lstGenre
+        private void ListGenre()
+        {
+            using (connection = new SqlConnection(connectionString))
+            using (SqlDataAdapter adapter = new SqlDataAdapter("select m.MovieName from Movie m where Genre = 'Action'", connection))
+            {
+                DataTable LibTable = new DataTable();
+                adapter.Fill(LibTable);
+
+                lstGenre.DisplayMember = "MovieName";
+                lstGenre.ValueMember = "MID";
+                lstGenre.DataSource = LibTable;
+            }
+        }
+
+
+
+
+        private void DrpDwn()
+        {
+            using (connection = new SqlConnection(connectionString))
+            using (SqlDataAdapter adapter = new SqlDataAdapter("SELECT Book.BookName FROM Book WHERE Book.BookID IN(SELECT ItemID FROM Transactions FULL JOIN Borrower ON Borrower.BID = Transactions.BID WHERE Borrower.Fname like 'Halla' AND transactions.Type77 = 0)", connection))
+            {
+                DataTable LibTable = new DataTable();
+                adapter.Fill(LibTable);
+
+                lstTrans.DisplayMember = "BookName";
+                lstTrans.ValueMember = "BID";
+                lstTrans.DataSource = LibTable;
+            }
+        }
+
+
+        private void Actor123()
+        {
+            using (connection = new SqlConnection(connectionString))
+            using (SqlDataAdapter adapter = new SqlDataAdapter("SELECT ACTOR.First FROM Actor FULL JOIN MOVIEACTOR ON ACTOR.ActorID = MOVIEACTOR.ActorID WHERE MOVIEACTOR.MID IN (SELECT MOVIE.MID FROM MOVIE WHERE MOVIE.MovieName like 'mi')", connection))
+            {
+                DataTable LibTable = new DataTable();
+                adapter.Fill(LibTable);
+
+                lstActor.DisplayMember = "First";
+                lstActor.ValueMember = "ActorID";
+                lstActor.DataSource = LibTable;
+            }
+        }
+
+        /*
+        private void CheckedBooks()
+        {
+            string q = "SELECT Book.BookName FROM Book WHERE Book.BookID IN(SELECT ItemID FROM Transactions FULL JOIN Borrower ON Borrower.BID = Transactions.BID WHERE Borrower.Fname like (@Fname) AND transactions.Type77 = 0)";
+            using (connection = new SqlConnection(connectionString))
+            using (SqlCommand command = new SqlCommand(q, connection))
+            using (SqlDataAdapter adapter = new SqlDataAdapter(command))
+            {
+                command.Parameters.AddWithValue("@Fname", lstTName.SelectedValue);
+
+
+
+                DataTable LTable = new DataTable();
+                adapter.Fill(LTable);
+
+                lstTrans.DisplayMember = "BookName";
+                lstTrans.ValueMember = "BID";
+                lstTrans.DataSource = LTable;
+            }
+        }*/
+
+        //private void lstTName_SelectedIndexChanged(object sender, EventArgs e)
+        // {
+        //CheckedBooks();
+        // }
+    }
+}

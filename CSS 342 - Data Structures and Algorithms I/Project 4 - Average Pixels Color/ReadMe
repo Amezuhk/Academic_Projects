@@ -1,0 +1,7 @@
+This project uses my image class newImage and applies a filter to an image.
+It goes through the image and selects groups of pixels that are similar and combines all their colors into one value and applies that to
+the whole group of pixels. 
+This uses linked lists to manage pixel groupings and makes sure that no pixel is accessed twice
+The process goes from top left to the bottom right until all the pixels are processed.
+The linkedPixel class is my linkedlist implementation.
+The input is fox and the output is output.

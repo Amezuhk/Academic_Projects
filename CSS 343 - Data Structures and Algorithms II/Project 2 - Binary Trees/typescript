@@ -1,0 +1,111 @@
+Script started on Mon 16 Oct 2017 05:54:15 PM PDT
+khuzema@uw1-320-08:~$ logoutcat typescript[8Plogout[Kg++ -std=c++11 lab2.cpp bintree.cpp nodedata.cpp
+khuzema@uw1-320-08:~$ valgrind ./a.out 
+==3183== Memcheck, a memory error detector
+==3183== Copyright (C) 2002-2015, and GNU GPL'd, by Julian Seward et al.
+==3183== Using Valgrind-3.11.0 and LibVEX; rerun with -h for copyright info
+==3183== Command: ./a.out
+==3183== 
+Initial data:
+  iii not tttt eee r not and jj r eee pp r sssss eee not tttt ooo ff m m y z $$ 
+Tree Inorder:
+and eee ff iii jj m not ooo pp r sssss tttt y z 
+                        z
+                    y
+                tttt
+                        sssss
+                    r
+                        pp
+                            ooo
+            not
+                    m
+                jj
+        iii
+                ff
+            eee
+                and
+Retrieve --> and:  found
+Retrieve --> not:  found
+Retrieve --> sss:  not found
+Depth    --> and:  3
+Depth    --> not:  2
+Depth    --> sss:  0
+T == T2?     equal
+T != first?  equal
+T == dup?    equal
+                    z
+                y
+                    tttt
+            sssss
+                    r
+                pp
+                    ooo
+        not
+                    m
+                jj
+                    iii
+            ff
+                    eee
+                and
+---------------------------------------------------------------
+Initial data:
+  b a c b a c $$ 
+Tree Inorder:
+a b c 
+            c
+        b
+            a
+Retrieve --> and:  not found
+Retrieve --> not:  not found
+Retrieve --> sss:  not found
+Depth    --> and:  0
+Depth    --> not:  0
+Depth    --> sss:  0
+T == T2?     equal
+T != first?  not equal
+T == dup?    not equal
+            c
+        b
+            a
+---------------------------------------------------------------
+Initial data:
+  c b a $$ 
+Tree Inorder:
+a b c 
+        c
+            b
+                a
+Retrieve --> and:  not found
+Retrieve --> not:  not found
+Retrieve --> sss:  not found
+Depth    --> and:  0
+Depth    --> not:  0
+Depth    --> sss:  0
+T == T2?     equal
+T != first?  not equal
+T == dup?    not equal
+            c
+        b
+            a
+---------------------------------------------------------------
+Initial data:
+   
+sh: 1: pause: not found
+==3183== 
+==3183== HEAP SUMMARY:
+==3183==     in use at exit: 73,024 bytes in 11 blocks
+==3183==   total heap usage: 183 allocs, 172 frees, 87,448 bytes allocated
+==3183== 
+==3183== LEAK SUMMARY:
+==3183==    definitely lost: 320 bytes in 10 blocks
+==3183==    indirectly lost: 0 bytes in 0 blocks
+==3183==      possibly lost: 0 bytes in 0 blocks
+==3183==    still reachable: 72,704 bytes in 1 blocks
+==3183==         suppressed: 0 bytes in 0 blocks
+==3183== Rerun with --leak-check=full to see details of leaked memory
+==3183== 
+==3183== For counts of detected and suppressed errors, rerun with: -v
+==3183== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+khuzema@uw1-320-08:~$ exit
+
+Script done on Mon 16 Oct 2017 05:54:39 PM PDT
